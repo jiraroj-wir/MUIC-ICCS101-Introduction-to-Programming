@@ -48,19 +48,6 @@ This repo may include:
 
 ---
 
-## ✏️ Assignment Grading Criteria
-
-Assignments are evaluated based on:
-
-- **Scope** – Does it fulfill the spec requirements?
-- **Correctness** – Is it accurate and well-tested?
-- **Design** – Is the code logical, clear, and efficient?
-- **Style** – Is the code clean and readable?
-
-> Students must include an **AI Acknowledgment Statement** when AI tools are used. Failing to do so may lead to disciplinary action.
-
----
-
 ## 🙋‍♂️ About Me
 
 I'm currently a student in this course using **LunarVim (Neovim distro)** on macOS (M1, ARM64) with Zsh. I'm comfortable with macOS and Linux but probably can't help much with Windows or IDE-specific issues. If you need help or want to discuss concepts, feel free to email me — I'm not a pro at Python or CS yet, but always happy to help where I can.
