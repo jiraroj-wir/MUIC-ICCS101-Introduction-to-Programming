@@ -8,14 +8,8 @@ This repository contains coursework for **ICCS101 - Introduction to Programming*
 ## 🧾 Course Info
 
 **Course Name:** ICCS101 - Introduction to Programming  
-**Term:** Trimester 3, Academic Year 2024–25  
-**Instructor:** Aj. Sunsern Cheamanunkul ([sunsern.che@mahidol.ac.th](mailto:sunsern.che@mahidol.ac.th))  
-**Section:** 1  
-**Time:**  
-- Tue: 10:00 – 12:50  
-- Thu: 10:00 – 11:50  
-**Room:** 1514  
-**Office hours:** TBA
+Taught by Aj. Sunsern Cheamanunkul  ([sunsern.che@mahidol.ac.th](mailto:sunsern.che@mahidol.ac.th))  
+Trimester 3 / AY 2024–25, MUIC
 
 ---
 
