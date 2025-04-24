@@ -1,0 +1,23 @@
+# Assignment 1, Task 4
+# Name: Jiraroj Wiruchpongsanon 
+# Collaborators: <NAME_1, NAME_2>
+# Time Spent: 0.15 hrs
+# Use of AI: NO
+# AI usage details: <DETAILS>
+
+Program I : 
+
+====================
+    x       y
+--------------------
+    True    True
+    False   False
+    False   True
+--------------------
+
+# True for ~x v y, which only false case would be for x = True, y = False
+
+
+Program II : 
+
+x = 50
