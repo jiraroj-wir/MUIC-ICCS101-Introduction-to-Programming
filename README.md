@@ -21,8 +21,8 @@ This repository contains coursework for **ICCS101 - Introduction to Programming*
 
 ## 🌐 Course Platforms
 
-- **Canvas LMS:** For quizzes, announcements, and grades  
-  [Join here](https://canvas.instructure.com/enroll/YLKWBL) or use join code: `YLKWBL`
+- **Canvas LMS:** [Access via MUIC Canvas](https://canvas.instructure.com)  
+(*Join code was shared during orientation or in-class*)
 
 - **Discord:** For office hours  
   [Join the Discord](https://discord.gg/sarMqnV)
