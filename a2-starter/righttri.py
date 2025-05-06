@@ -6,9 +6,12 @@
 # AI usage details: <DETAILS>
 
 ### Your code start here ######
+T: float = float(1e-7)
+
 x: float = float(input())
 y: float = float(input())
 z: float = float(input())
 max_float = max(x, y, z)
 sum = pow(x, 2) + pow(y, 2) + pow(z, 2)
-print(2 * pow(max_float, 2) == sum)
+# print(2 * pow(max_float, 2) == sum)
+print(2 * pow(max_float, 2) - sum < T)  # best practice, according to the floating point warning
