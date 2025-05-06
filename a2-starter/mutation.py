@@ -41,8 +41,9 @@ t = temp
 
 # step 4
 if s and t:
+    temp = s[0]     # fix 
     s = t[0] + s[1:]
-    t = s[0] + t[1:]
+    t = temp + t[1:]
 
 # step 5
 def replace_last_third_with_mid_third(a, b):
