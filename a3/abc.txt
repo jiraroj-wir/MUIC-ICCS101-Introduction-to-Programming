@@ -1,0 +1,13 @@
+# Assignment 3, Task 4
+# Name: Jiraroj Wiruchpongsanon
+# Collaborators: <NAME_1, NAME_2>
+# Time Spent: 0.2 hrs
+# Use of AI: NO
+# AI usage details: <DETAILS>
+
+### Your code start here ######
+1. bdbaac : b() -> d() -> a() -> c()
+2. aacbba : a() -> c() -> b() -> b() -> a()
+3. dbabac : d() -> a() -> b() -> c()
+4. cbaedb : impossible, since c() will always printout 'a' first
+5. acedba : e() -> a()
