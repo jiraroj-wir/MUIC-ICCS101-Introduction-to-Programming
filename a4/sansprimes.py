@@ -9,7 +9,6 @@
 ### Your code start here ######
 import math
 
-
 def is_prime(n: int) -> bool:
     num = 2
     if n < 2:
