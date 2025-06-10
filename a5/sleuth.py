@@ -1,7 +1,7 @@
 # Assignment 5, Task 5
 # Name: Jiraroj Wiruchpongsanon
 # Collaborators: <NAME_1, NAME_2>
-# Time Spent: 0.3 hrs
+# Time Spent: 1.0 hrs
 # Use of AI: NO
 # AI usage details: <DETAILS>
 
@@ -45,6 +45,7 @@ def hash(s: str) -> int:
     product = 1
     for ch in s:
         product *= char_prime_map[ch]
+
     return product
 
 
