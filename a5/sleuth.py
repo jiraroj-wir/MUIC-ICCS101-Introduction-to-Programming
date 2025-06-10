@@ -5,8 +5,14 @@
 # Use of AI: NO
 # AI usage details: <DETAILS>
 
+"""
+partial rabin-karp algorithm, I don't think it gain much speed compare to normal approach, since i didnt implement the rolling hash part.
+so, roughly O(75*75) + O(50*150*w); w = average word length, rather than O(50*75*75*w) for brute force, thats 30 times faster right?
+"""
+
 
 ### Your code start here ######
+# normal prime hash here, not rolling hash
 def hash(s: str) -> int:
     char_prime_map = {
         "a": 2,
@@ -48,12 +54,14 @@ def rabin_karp_on_grid(candidates: list[str], word: str) -> bool:
         for i in range(len(candidate) - len(word) + 1):
             temp = hash(candidate[i : i + len(word)])
             if temp == word_hash:
-                if candidate[i : i + len(word)] == word:
+                if (
+                    candidate[i : i + len(word)] == word
+                ):  # double check, I don't wanna get ghosted by these probabilistic algo.
                     return True
     return False
 
 
-def contains_word(grid: list[list[str]], w: str) -> bool:
+def make_candidates(grid: list[list[str]]) -> list[str]:
     rows, cols = len(grid), len(grid[0])
     candidates = []
 
@@ -91,17 +99,19 @@ def contains_word(grid: list[list[str]], w: str) -> bool:
         if line:
             candidates.append(line)
 
-    return rabin_karp_on_grid(candidates, w)
+    return candidates
 
 
 # unnecessary, since we use rabin-karp
+# def contains_word(grid: list[list[str]], w: str) -> bool t:
 # def make_unique(lst: list[str]) -> list[str]:
 
 
 def word_sleuth(grid: list[list[str]], words: list[str]) -> list[str]:
     in_grid = []
+    candidates = make_candidates(grid)
     for word in words:
-        if contains_word(grid, word):
+        if rabin_karp_on_grid(candidates, word):
             in_grid.append(word)
 
     return in_grid
@@ -119,5 +129,4 @@ grid = [
 words = ["bog", "moon", "rabbit", "the", "bit", "raw"]
 
 # testcase got different output order, so use a set
-print(word_sleuth(grid, words))
 assert set(word_sleuth(grid, words)) == {"raw", "bit", "rabbit", "bog", "the"}
