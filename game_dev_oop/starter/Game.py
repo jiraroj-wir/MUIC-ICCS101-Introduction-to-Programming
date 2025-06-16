@@ -6,6 +6,7 @@ from Player import Player
 from Food import Food
 from Scorecard import Scorecard
 from Pill import Pill
+from Coin import Coin
 
 
 class Game:
@@ -40,9 +41,18 @@ class Game:
         self.food = Food(
             randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
         )
+
         self.pill = Pill(
             randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
         )
+
+        self.coins = []
+        for _ in range(5):
+            self.coins.append(
+                Coin(
+                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+                )
+            )
 
         self.score_card = Scorecard(0)
 
