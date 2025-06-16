@@ -36,3 +36,4 @@
 ## 🐛 Bug Fix
 
 - [/] Fix "last row" bug where the snake leaves a trail when moving through the last row.
+- [ ] Collectables can be spawned in the same location/ spawn on top of each other
