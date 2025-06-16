@@ -62,6 +62,16 @@ class Game:
                 randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
             )
 
+        # eat pill
+        if (head_x, head_y) == (self.pill.x, self.pill.y):
+            if self.player.length >= 3:
+                self.player.length -= 2
+            self.score_card.score -= 50
+            self.pill.sound()
+            self.pill = Pill(
+                randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+            )
+
         # hit the wall (die)
         if head_x < 0 or head_y < 0 or head_x >= self.maxX or head_y >= self.maxY:
             self.game_over()

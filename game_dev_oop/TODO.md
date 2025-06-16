@@ -6,10 +6,10 @@
 - [/] Create a new `self.pill` object in the `reset()` method of the `Game` class.
 - [/] In the `update()` method of the `Game` class:
   - [/] Call `self.pill.draw()`.
-  - [ ] Add logic for when the snake eats the pill:
-    - [ ] Decrease the score by **50**.
-    - [ ] Shrink the snake by **2 segments**, but ensure its length doesn’t go below 1.
-    - [ ] Respawn the pill at a random location.
+  - [/] Add logic for when the snake eats the pill:
+    - [/] Decrease the score by **50**.
+    - [/] Shrink the snake by **2 segments**, but ensure its length doesn’t go below 1.
+    - [/] Respawn the pill at a random location.
 
 ---
 
