@@ -15,10 +15,10 @@
 
 ## 🪙 Coin Feature
 
-- [ ] Create a new class `Coin`. It should:
-  - [ ] Be similar to `Food`.
-  - [ ] Use `assets/coin.jpg` for display.
-  - [ ] Play sound from `assets/sfx2.wav` on collection.
+- [/] Create a new class `Coin`. It should:
+  - [/] Be similar to `Food`.
+  - [/] Use `assets/coin.jpg` for display.
+  - [/] Play sound from `assets/sfx2.wav` on collection.
 - [ ] In the `reset()` method of `Game`:
   - [ ] Create **5** instances of `Coin` and store them in `self.coins`.
 - [ ] In the `update()` method of `Game`:

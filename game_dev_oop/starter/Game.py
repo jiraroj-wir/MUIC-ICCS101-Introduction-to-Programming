@@ -43,6 +43,7 @@ class Game:
         self.pill = Pill(
             randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
         )
+
         self.score_card = Scorecard(0)
 
     def update(self):
