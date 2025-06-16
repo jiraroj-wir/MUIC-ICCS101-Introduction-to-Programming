@@ -5,6 +5,7 @@ from random import randint
 from Player import Player
 from Food import Food
 from Scorecard import Scorecard
+from Pill import Pill
 
 
 class Game:
@@ -37,6 +38,9 @@ class Game:
         """
         self.player = Player(3, 3, self.blockSize, pygame.Color("red"))
         self.food = Food(
+            randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+        )
+        self.pill = Pill(
             randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
         )
         self.score_card = Scorecard(0)
@@ -72,6 +76,7 @@ class Game:
         self.food.draw(self.screen)
         self.player.draw(self.screen)
         self.score_card.draw(self.screen)
+        self.pill.draw(self.screen)
         pygame.display.flip()
 
     def run(self):
