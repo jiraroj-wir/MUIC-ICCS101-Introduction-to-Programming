@@ -83,6 +83,17 @@ class Game:
                 randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
             )
 
+        # hit any coins
+        head_x, head_y = self.player.body[0]
+        for idx, coin in enumerate(self.coins):
+            if coin.x == head_x and coin.y == head_y:
+                coin.sound()
+                self.score_card.score += 500
+                self.coins[idx] = Coin(
+                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+                )
+                break  # you can only hit one coin in a single frame
+
         # hit the wall (die)
         if head_x < 0 or head_y < 0 or head_x >= self.maxX or head_y >= self.maxY:
             self.game_over()
@@ -98,6 +109,8 @@ class Game:
         self.player.draw(self.screen)
         self.score_card.draw(self.screen)
         self.pill.draw(self.screen)
+        for coin in self.coins:
+            coin.draw(self.screen)
         pygame.display.flip()
 
     def run(self):
