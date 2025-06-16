@@ -21,8 +21,9 @@ class Game:
         self.gameSpeed = 3  # update player every 3 frames
 
         # graphics
+        # the background image is 1024 × 768 px, so it should be 4:3
         self.maxX = 20
-        self.maxY = 19
+        self.maxY = 15
         self.blockSize = 40
         self.windowWidth = self.maxX * self.blockSize
         self.windowHeight = self.maxY * self.blockSize
