@@ -29,7 +29,7 @@
 
 ---
 ## 👾 changes
-> Eating a coin should not kill the snake, should it? Any penalty?
+> Eating itself should not kill the snake, should it? Any penalty?
 
 ---
 
