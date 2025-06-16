@@ -29,10 +29,10 @@
 
 ---
 ## 👾 changes
-> Eating itself should not kill the snake, should it? Any penalty?
+> [never mind] Eating itself should not kill the snake, should it? Any penalty?
 
 ---
 
 ## 🐛 Bug Fix
 
-- [ ] Fix "last row" bug where the snake leaves a trail when moving through the last row.
+- [/] Fix "last row" bug where the snake leaves a trail when moving through the last row.

@@ -22,7 +22,7 @@ class Game:
 
         # graphics
         self.maxX = 20
-        self.maxY = 20
+        self.maxY = 19
         self.blockSize = 40
         self.windowWidth = self.maxX * self.blockSize
         self.windowHeight = self.maxY * self.blockSize
