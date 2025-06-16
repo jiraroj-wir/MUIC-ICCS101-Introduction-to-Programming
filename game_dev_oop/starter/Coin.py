@@ -6,7 +6,7 @@ class Coin:
         self.x = x
         self.y = y
         self.blockSize = blockSize
-        self.image = pygame.image.load("assets/coin.jpg").convert()
+        self.image = pygame.image.load("assets/coin.png")
         self.sfx = pygame.mixer.Sound("assets/sfx2.wav")
 
     def draw(self, surface):
