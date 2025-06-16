@@ -1,4 +1,4 @@
-# TODOs [14/06/2025]
+# TODOs
 
 ## 🍬 Pill Feature
 
