@@ -10,7 +10,7 @@
 def loveTri(n: int) -> list[list[int]]:
     count = 1
     lst = [[1]]
-    while count <= n:
+    while count <= n - 1:
         temp_list = lst[count - 1]
         temp_list_size = len(temp_list)
         last_number_in_list = temp_list[temp_list_size - 1]
