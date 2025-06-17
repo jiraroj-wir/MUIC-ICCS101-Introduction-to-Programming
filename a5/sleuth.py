@@ -7,7 +7,7 @@
 
 """
 partial rabin-karp algorithm, I don't think it gain much speed compare to normal approach, since i didnt implement the rolling hash part.
-so, roughly O(75*75) + O(50*150*w); w = average word length, rather than O(50*75*75*w) for brute force, thats 30 times faster right?
+so, roughly O(75*75) + O(50*150*w); w = average word length, rather than O(50*75*75*w) for brute force -- thats 30 times faster right, but it gain most time from memoization?
 """
 
 
