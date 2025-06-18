@@ -34,30 +34,26 @@ class Game:
 
         self.reset()
 
-    def get_unique_position(self, used_positions):
-        while True:
-            x, y = randint(0, self.maxX - 1), randint(0, self.maxY - 1)
-            if (x, y) not in used_positions:
-                used_positions.add((x, y))
-                return x, y
-
     def reset(self):
         """
         Reset the game
         """
         self.player = Player(3, 3, self.blockSize, pygame.Color("red"))
-        used_positions = set(self.player.body)
+        self.food = Food(
+            randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+        )
 
-        fx, fy = self.get_unique_position(used_positions)
-        self.food = Food(fx, fy, self.blockSize)
-
-        px, py = self.get_unique_position(used_positions)
-        self.pill = Pill(px, py, self.blockSize)
+        self.pill = Pill(
+            randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+        )
 
         self.coins = []
         for _ in range(5):
-            cx, cy = self.get_unique_position(used_positions)
-            self.coins.append(Coin(cx, cy, self.blockSize))
+            self.coins.append(
+                Coin(
+                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+                )
+            )
 
         self.score_card = Scorecard(0)
 
@@ -74,12 +70,9 @@ class Game:
             self.player.length += 1
             self.score_card.score += 100
             self.food.sound()
-
-            used_positions = set(self.player.body)
-            used_positions.add((self.pill.x, self.pill.y))
-            used_positions.update((c.x, c.y) for c in self.coins)
-            fx, fy = self.get_unique_position(used_positions)
-            self.food = Food(fx, fy, self.blockSize)
+            self.food = Food(
+                randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+            )
 
         # eat pill
         if (head_x, head_y) == (self.pill.x, self.pill.y):
@@ -87,12 +80,9 @@ class Game:
                 self.player.length -= 2
             self.score_card.score -= 50
             self.pill.sound()
-
-            used_positions = set(self.player.body)
-            used_positions.add((self.food.x, self.food.y))
-            used_positions.update((c.x, c.y) for c in self.coins)
-            px, py = self.get_unique_position(used_positions)
-            self.pill = Pill(px, py, self.blockSize)
+            self.pill = Pill(
+                randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
+            )
 
         # hit any coins
         head_x, head_y = self.player.body[0]
@@ -100,16 +90,9 @@ class Game:
             if coin.x == head_x and coin.y == head_y:
                 coin.sound()
                 self.score_card.score += 500
-
-                used_positions = set(self.player.body)
-                used_positions.add((self.food.x, self.food.y))
-                used_positions.add((self.pill.x, self.pill.y))
-                used_positions.update(
-                    (c.x, c.y) for i, c in enumerate(self.coins) if i != idx
+                self.coins[idx] = Coin(
+                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
                 )
-
-                cx, cy = self.get_unique_position(used_positions)
-                self.coins[idx] = Coin(cx, cy, self.blockSize)
                 break  # you can only hit one coin in a single frame
 
         # hit the wall (die)
