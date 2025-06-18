@@ -31,6 +31,7 @@ class Game:
             (self.windowWidth, self.windowHeight), pygame.HWSURFACE
         )
         self.bgImage = pygame.image.load("assets/bg.jpg").convert()
+        self.occupied_positions = set()
 
         self.reset()
 
@@ -39,21 +40,16 @@ class Game:
         Reset the game
         """
         self.player = Player(3, 3, self.blockSize, pygame.Color("red"))
-        self.food = Food(
-            randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-        )
+        new_x, new_y = self.get_unique_position()
+        self.food = Food(new_x, new_y, self.blockSize)
 
-        self.pill = Pill(
-            randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-        )
+        new_x, new_y = self.get_unique_position()
+        self.pill = Pill(new_x, new_y, self.blockSize)
 
         self.coins = []
         for _ in range(5):
-            self.coins.append(
-                Coin(
-                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-                )
-            )
+            new_x, new_y = self.get_unique_position()
+            self.coins.append(Coin(new_x, new_y, self.blockSize))
 
         self.score_card = Scorecard(0)
 
@@ -70,9 +66,9 @@ class Game:
             self.player.length += 1
             self.score_card.score += 100
             self.food.sound()
-            self.food = Food(
-                randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-            )
+            self.occupied_positions.remove((head_x, head_y))
+            new_x, new_y = self.get_unique_position()
+            self.food = Food(new_x, new_y, self.blockSize)
 
         # eat pill
         if (head_x, head_y) == (self.pill.x, self.pill.y):
@@ -80,9 +76,9 @@ class Game:
                 self.player.length -= 2
             self.score_card.score -= 50
             self.pill.sound()
-            self.pill = Pill(
-                randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-            )
+            self.occupied_positions.remove((head_x, head_y))
+            new_x, new_y = self.get_unique_position()
+            self.pill = Pill(new_x, new_y, self.blockSize)
 
         # hit any coins
         head_x, head_y = self.player.body[0]
@@ -90,9 +86,10 @@ class Game:
             if coin.x == head_x and coin.y == head_y:
                 coin.sound()
                 self.score_card.score += 500
-                self.coins[idx] = Coin(
-                    randint(0, self.maxX - 1), randint(0, self.maxY - 1), self.blockSize
-                )
+
+                self.occupied_positions.remove((head_x, head_y))
+                new_x, new_y = self.get_unique_position()
+                self.coins[idx] = Coin(new_x, new_y, self.blockSize)
                 break  # you can only hit one coin in a single frame
 
         # hit the wall (die)
@@ -124,24 +121,24 @@ class Game:
             pygame.event.pump()
             keys = pygame.key.get_pressed()
 
-            if keys[K_RIGHT]:
+            if keys[K_RIGHT] or keys[K_l]:
                 self.player.moveRight()
                 print("RIGHT")
 
-            if keys[K_LEFT]:
+            if keys[K_LEFT] or keys[K_h]:
                 self.player.moveLeft()
                 print("LEFT")
 
-            if keys[K_UP]:
+            if keys[K_UP] or keys[K_k]:
                 self.player.moveUp()
                 print("UP")
 
-            if keys[K_DOWN]:
+            if keys[K_DOWN] or keys[K_j]:
                 self.player.moveDown()
                 print("DOWN")
 
             # Exit the game
-            if keys[K_ESCAPE]:
+            if keys[K_ESCAPE] or keys[K_q]:
                 break
 
             # update the game
@@ -159,3 +156,10 @@ class Game:
     def game_over(self):
         print("Game over")
         self.reset()
+
+    def get_unique_position(self):
+        while True:
+            x, y = randint(0, self.maxX - 1), randint(0, self.maxY - 1)
+            if (x, y) not in self.occupied_positions:
+                self.occupied_positions.add((x, y))
+                return x, y
