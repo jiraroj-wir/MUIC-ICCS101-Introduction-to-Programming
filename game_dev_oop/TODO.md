@@ -29,8 +29,8 @@
 
 ---
 ## 👾 changes
-> [never mind] Eating itself should not kill the snake, should it? Any penalty?
-> [/] add vim keybinds to the player control
+> - [never mind] Eating itself should not kill the snake, should it? Any penalty?
+> - [/] add vim keybinds to the player control
 
 ---
 
