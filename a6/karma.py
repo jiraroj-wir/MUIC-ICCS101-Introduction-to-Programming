@@ -23,6 +23,7 @@ def keepTabs(actions: list[str]) -> dict[str, int]:
 
             records[person] -= 1
         else:  # i miss elixir pattern matching T_T
+            # turns out, you can do pattern matching in python O.o
             parse_here = -1
             for idx in range(len(action) - 1):
                 if action[idx] == "-" and action[idx + 1] == ">":
