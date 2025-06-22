@@ -127,6 +127,13 @@ class Game2048:
         elif k == "r":
             self.reset()
 
+    # error here !!!
+    """
+    [1]    25525 bus error  python3 run_2048.py
+
+    this happends every time `gameOver` is called, probably my python and tk version fault
+    """
+
     def gameOver(self):
         tkMessageBox.showinfo("Game Over", "Game Over!")
         self.reset()
