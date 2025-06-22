@@ -18,6 +18,16 @@ ModuleNotFoundError: No module named '_tkinter'
 
 I supposed that means, you install python via homebrew, and homebrew doesn't have Tk support.
 Thus, you need to install tk for python separately via `brew install python-tk`
+
+Additionally, if you're using an unstable release of python or tk (the ones installed via homebrew), you might get a SIGBUS crash, sth like this:
+
+[1]    25525 bus error  python3 run_2048.py
+
+This happends whenever gameOver() is called in ./run_2048.py, the problem probably be this line:
+
+tkMessageBox.showinfo("Game Over", "Game Over!")
+
+* I can't and won't fix it, too depressed right now -- it should works fine for the grader though.
 """
 
 ### Your code start here ######
