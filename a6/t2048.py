@@ -2,8 +2,8 @@
 # Name: Jiraroj Wiruchpongsanon
 # Collaborators: <NAME_1, NAME_2>
 # Time Spent: 4:00 hrs
-# Use of AI: NO
-# AI usage details: <DETAILS>
+# Use of AI: YES
+# AI usage details: Generate the examples, and try to fix the crash
 # ----------------------------------
 
 """for macos-arm64 user
@@ -35,10 +35,6 @@ from typing import List, Tuple
 
 Board = List[List[str]]
 
-# Checks whether a given board has any
-# possible move left. If no more moves,
-# return True. Otherwise return False.
-
 # dont need this now
 """ 
 DIRECTION = {
@@ -50,7 +46,7 @@ DIRECTION = {
 """
 
 
-# https://www.geeksforgeeks.org/matrix-transpose-without-numpy-in-python/
+# credit: https://www.geeksforgeeks.org/matrix-transpose-without-numpy-in-python/
 def transpose(board: Board) -> Board:
     return [list(row) for row in zip(*board)]
 
@@ -65,6 +61,9 @@ def mirror(board: Board) -> Board:
     return reflection
 
 
+# Checks whether a given board has any
+# possible move left. If no more moves,
+# return True. Otherwise return False.
 def isGameOver(board: Board) -> bool:
     if emptyPos(board):
         return False
@@ -83,6 +82,45 @@ def isGameOver(board: Board) -> bool:
 #            the board has changed.
 #  new_board - the board after the user
 #              presses the 'Up' key.
+"""
+[
+ ["2"," ","2"],
+ ["2","2","2"],
+ [" ","2"," "],
+ ["2","2","2"]
+] 
+-> transpose -> 
+[
+ ["2","2"," ","2"],
+ [" ","2","2","2"],
+ ["2","2"," ","2"]
+] 
+-> mirror -> 
+[
+ ["2"," ","2","2"],
+ ["2","2","2"," "],
+ ["2"," ","2","2"]
+] 
+-> doKeyRight -> 
+[
+ [" "," ","2","4"],
+ [" "," ","2","4"],
+ [" "," ","2","4"]
+] 
+-> mirror -> 
+[
+ ["4","2"," "," "],
+ ["4","2"," "," "],
+ ["4","2"," "," "]
+] 
+-> transpose -> 
+[
+ ["4","4","4"],
+ ["2","2","2"],
+ [" "," "," "],
+ [" "," "," "]
+]
+"""
 
 
 def doKeyUp(board: Board) -> Tuple[bool, Board]:
@@ -99,6 +137,33 @@ def doKeyUp(board: Board) -> Tuple[bool, Board]:
 #            the board has changed.
 #  new_board - the board after the user
 #              presses the 'Down' key.
+"""
+[
+ ["2"," ","2"],
+ ["2","2","2"],
+ [" ","2"," "],
+ ["2","2","2"]
+] 
+-> transpose -> 
+[
+ ["2","2"," ","2"],
+ [" ","2","2","2"],
+ ["2","2"," ","2"]
+] 
+-> doKeyRight -> 
+[
+ [" "," ","2","4"],
+ [" "," ","2","4"],
+ [" "," ","2","4"]
+] 
+-> transpose -> 
+[
+ [" "," "," "],
+ [" "," "," "],
+ ["2","2","2"],
+ ["4","4","4"]
+]
+"""
 
 
 def doKeyDown(board: Board) -> Tuple[bool, Board]:
@@ -115,6 +180,35 @@ def doKeyDown(board: Board) -> Tuple[bool, Board]:
 #            the board has changed.
 #  new_board - the board after the user
 #              presses the 'Left' key.
+"""
+[
+ ["2"," ","2"],
+ ["2","2","2"],
+ [" ","2"," "],
+ ["2","2","2"]
+] 
+-> mirror -> 
+[
+ ["2"," ","2"],
+ ["2","2","2"],
+ [" ","2"," "],
+ ["2","2","2"]
+] 
+-> doKeyRight -> 
+[
+ [" "," ","4"],
+ [" ","2","4"],
+ [" "," ","2"],
+ [" ","2","4"]
+] 
+-> mirror -> 
+[
+ ["4"," "," "],
+ ["4","2"," "],
+ ["2"," "," "],
+ ["4","2"," "]
+]
+"""
 
 
 def doKeyLeft(board: Board) -> Tuple[bool, Board]:
