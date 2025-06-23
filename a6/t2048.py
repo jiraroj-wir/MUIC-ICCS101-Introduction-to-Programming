@@ -39,12 +39,15 @@ Board = List[List[str]]
 # possible move left. If no more moves,
 # return True. Otherwise return False.
 
+# dont need this now
+""" 
 DIRECTION = {
     "UP": (-1, 0),
     "DOWN": (1, 0),
     "LEFT": (0, -1),
     "RIGHT": (0, 1),
 }
+"""
 
 
 # https://www.geeksforgeeks.org/matrix-transpose-without-numpy-in-python/
