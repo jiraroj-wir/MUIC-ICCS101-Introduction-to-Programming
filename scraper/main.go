@@ -32,7 +32,7 @@ func main() {
 		log.Fatalf("could not create page: %v", err)
 	}
 
-	// Login
+	// login
 	_, err = page.Goto("https://python.cs.muzoo.io/protected/lessons/01/welcome/")
 	if err != nil {
 		log.Fatalf("could not go to login page: %v", err)
@@ -43,7 +43,7 @@ func main() {
 	page.Check("#rememberMe")
 
 	err = page.Click("#kc-login", playwright.PageClickOptions{
-		Timeout: playwright.Float(5000),
+		Timeout: playwright.Float(3000),
 	})
 	if err != nil {
 		log.Fatalf("login click failed: %v", err)
@@ -82,6 +82,13 @@ func main() {
 			log.Printf("failed to access %s: %v", url, err)
 			continue
 		}
+
+		// prevent lazy loading, or what ever makes the embeded exercises unshown
+		page.EvalOnSelectorAll(".muzoo-problembox", "(els) => els.forEach(el => el.scrollIntoView({block: 'center'}))")
+
+		page.WaitForSelector(".CodeMirror-line", playwright.PageWaitForSelectorOptions{
+			Timeout: playwright.Float(2000),
+		})
 
 		filename := fmt.Sprintf("test/%s.png", cleanFileName(title))
 		_, err = page.Screenshot(playwright.PageScreenshotOptions{
