@@ -39,11 +39,11 @@ func main() {
 	}
 
 	page.Fill("#username", "u6781617")
-	page.Fill("#password", "REMOVED")
+	page.Fill("#password", "NAH")
 	page.Check("#rememberMe")
 
 	err = page.Click("#kc-login", playwright.PageClickOptions{
-		Timeout: playwright.Float(3000),
+		Timeout: playwright.Float(1000),
 	})
 	if err != nil {
 		log.Fatalf("login click failed: %v", err)
@@ -76,7 +76,7 @@ func main() {
 	os.MkdirAll("test", os.ModePerm)
 
 	for title, url := range lessons {
-		log.Println("visiting:", url)
+		// log.Println("visiting:", url)
 		_, err := page.Goto(url)
 		if err != nil {
 			log.Printf("failed to access %s: %v", url, err)
@@ -87,7 +87,7 @@ func main() {
 		page.EvalOnSelectorAll(".muzoo-problembox", "(els) => els.forEach(el => el.scrollIntoView({block: 'center'}))")
 
 		page.WaitForSelector(".CodeMirror-line", playwright.PageWaitForSelectorOptions{
-			Timeout: playwright.Float(2000),
+			Timeout: playwright.Float(1000),
 		})
 
 		filename := fmt.Sprintf("test/%s.png", cleanFileName(title))
