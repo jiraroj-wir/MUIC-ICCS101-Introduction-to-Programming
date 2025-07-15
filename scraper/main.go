@@ -37,11 +37,9 @@ func main() {
 	if err != nil {
 		log.Fatalf("could not go to login page: %v", err)
 	}
-
 	page.Fill("#username", "u6781617")
-	page.Fill("#password", "NAH")
+	page.Fill("#password", "REMOVED")
 	page.Check("#rememberMe")
-
 	err = page.Click("#kc-login", playwright.PageClickOptions{
 		Timeout: playwright.Float(1000),
 	})
@@ -76,19 +74,37 @@ func main() {
 	os.MkdirAll("test", os.ModePerm)
 
 	for title, url := range lessons {
-		// log.Println("visiting:", url)
+		fmt.Println("Visiting:", title)
 		_, err := page.Goto(url)
 		if err != nil {
 			log.Printf("failed to access %s: %v", url, err)
 			continue
 		}
 
-		// prevent lazy loading, or what ever makes the embeded exercises unshown
-		page.EvalOnSelectorAll(".muzoo-problembox", "(els) => els.forEach(el => el.scrollIntoView({block: 'center'}))")
+		// Scroll each problem box and trigger CodeMirror render
+		problemboxes, err := page.QuerySelectorAll(".muzoo-problembox")
+		if err != nil {
+			log.Printf("could not find problemboxes in %s: %v", title, err)
+			continue
+		}
 
-		page.WaitForSelector(".CodeMirror-line", playwright.PageWaitForSelectorOptions{
-			Timeout: playwright.Float(1000),
-		})
+		for _, box := range problemboxes {
+			// Scroll into view
+			err := box.ScrollIntoViewIfNeeded()
+			if err != nil {
+				log.Printf("scroll error: %v", err)
+			}
+			page.WaitForTimeout(200)
+
+			// Click to trigger rendering inside CodeMirror
+			cmLine, err := box.QuerySelector(".CodeMirror-line")
+			if err == nil && cmLine != nil {
+				cmLine.Click()
+				page.WaitForTimeout(100)
+			}
+		}
+
+		page.WaitForTimeout(500) // ensure rendering finishes
 
 		filename := fmt.Sprintf("test/%s.png", cleanFileName(title))
 		_, err = page.Screenshot(playwright.PageScreenshotOptions{
