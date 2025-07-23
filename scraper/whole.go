@@ -1,3 +1,5 @@
+// whole.go
+// capture full-page screenshots of each lesson page into the images/ directory.
 package main
 
 import (
@@ -9,43 +11,39 @@ import (
 	"github.com/playwright-community/playwright-go"
 )
 
-func cleanFileName(name string) string {
-	name = strings.ReplaceAll(name, " ", "_")
-	name = strings.ReplaceAll(name, ":", "")
-	name = strings.ReplaceAll(name, "/", "_")
-	return strings.ToLower(name)
+// clean converts a lesson title into a safe file name.
+func clean(s string) string {
+	r := strings.NewReplacer(" ", "_", ":", "", "/", "_")
+	return strings.ToLower(r.Replace(s))
 }
 
 func main() {
 	pw, err := playwright.Run()
 	if err != nil {
-		log.Fatalf("could not launch playwright: %v", err)
+		log.Fatalf("playwright: %v", err)
 	}
+	defer pw.Stop()
+
 	browser, err := pw.Chromium.Launch(playwright.BrowserTypeLaunchOptions{
 		Headless: playwright.Bool(true),
 	})
 	if err != nil {
-		log.Fatalf("could not launch browser: %v", err)
+		log.Fatalf("browser: %v", err)
 	}
+	defer browser.Close()
+
 	page, err := browser.NewPage()
 	if err != nil {
-		log.Fatalf("could not create page: %v", err)
+		log.Fatalf("page: %v", err)
 	}
 
 	// login
-	_, err = page.Goto("https://python.cs.muzoo.io/protected/lessons/01/welcome/")
-	if err != nil {
-		log.Fatalf("could not go to login page: %v", err)
-	}
+	page.Goto("https://python.cs.muzoo.io/protected/lessons/01/welcome/")
 	page.Fill("#username", "u6781617")
 	page.Fill("#password", "REMOVED")
 	page.Check("#rememberMe")
-	err = page.Click("#kc-login", playwright.PageClickOptions{
-		Timeout: playwright.Float(1000),
-	})
-	if err != nil {
-		log.Fatalf("login click failed: %v", err)
-	}
+	page.Click("#kc-login")
+	page.WaitForLoadState()
 
 	lessons := map[string]string{
 		"Getting Started With Python":          "https://python.cs.muzoo.io/protected/lessons/02/getting-started/",
@@ -71,52 +69,33 @@ func main() {
 		"Game Development with OOP (Optional)": "https://python.cs.muzoo.io/protected/lessons/23X/game/",
 	}
 
-	os.MkdirAll("test", os.ModePerm)
+	os.MkdirAll("images", 0755)
 
 	for title, url := range lessons {
-		fmt.Println("Visiting:", title)
-		_, err := page.Goto(url)
-		if err != nil {
-			log.Printf("failed to access %s: %v", url, err)
+		fmt.Println(title)
+		if _, err := page.Goto(url); err != nil {
+			log.Printf("skip %s: %v", url, err)
 			continue
 		}
 
-		// Scroll each problem box and trigger CodeMirror render
-		problemboxes, err := page.QuerySelectorAll(".muzoo-problembox")
-		if err != nil {
-			log.Printf("could not find problemboxes in %s: %v", title, err)
-			continue
-		}
-
-		for _, box := range problemboxes {
-			// Scroll into view
-			err := box.ScrollIntoViewIfNeeded()
-			if err != nil {
-				log.Printf("scroll error: %v", err)
-			}
+		boxes, _ := page.QuerySelectorAll(".muzoo-problembox")
+		for _, b := range boxes {
+			b.ScrollIntoViewIfNeeded()
 			page.WaitForTimeout(200)
-
-			// Click to trigger rendering inside CodeMirror
-			cmLine, err := box.QuerySelector(".CodeMirror-line")
-			if err == nil && cmLine != nil {
-				cmLine.Click()
+			if l, _ := b.QuerySelector(".CodeMirror-line"); l != nil {
+				l.Click()
 				page.WaitForTimeout(100)
 			}
 		}
+		page.WaitForTimeout(500)
 
-		page.WaitForTimeout(500) // ensure rendering finishes
-
-		filename := fmt.Sprintf("test/%s.png", cleanFileName(title))
 		_, err = page.Screenshot(playwright.PageScreenshotOptions{
-			Path:     playwright.String(filename),
+			Path:     playwright.String(fmt.Sprintf("images/%s.png", clean(title))),
 			FullPage: playwright.Bool(true),
 		})
 		if err != nil {
-			log.Printf("screenshot failed for %s: %v", title, err)
-			continue
+			log.Printf("screenshot %s: %v", title, err)
 		}
 	}
-
-	browser.Close()
-	pw.Stop()
+	fmt.Println("done")
 }
