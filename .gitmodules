@@ -1,0 +1,3 @@
+[submodule "scraper/images"]
+	path = scraper/images
+	url = https://github.com/jiraroj-wir/MUIC-ICCS101-Introduction-to-Programming-Assets.git
