@@ -32,7 +32,7 @@ Trimester 3 / AY 2024–25, MUIC
 ---
 
 ## 📂 Repository Contents
-- **Assignments/**  
+- **assignments/**  
   Combined folder for A1–A7, covering all core exercises throughout the course.
 
 - **mastery/**  
