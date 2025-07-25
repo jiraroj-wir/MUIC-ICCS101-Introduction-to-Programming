@@ -39,7 +39,7 @@ func main() {
 	// login once
 	page.Goto("https://python.cs.muzoo.io/protected/lessons/01/welcome/")
 	page.Fill("#username", "u6781617")
-	page.Fill("#password", "REMOVED")
+	page.Fill("#password", "REMOVE")
 	page.Check("#rememberMe")
 	page.Click("#kc-login")
 	page.WaitForLoadState()
